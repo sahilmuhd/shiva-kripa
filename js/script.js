@@ -22,6 +22,7 @@
     cover.classList.add('is-gone');
     body.classList.remove('is-locked');
     body.classList.add('is-open');
+    startMusic();
     window.scrollTo(0, 0);
     window.setTimeout(playHeroReveal, reduceMotion ? 0 : 350);
     // Return focus to the page once the cover has gone.
@@ -29,6 +30,27 @@
   }
 
   if (openBtn) openBtn.addEventListener('click', openInvitation);
+
+  /* ---------- Background music (starts on "Open Invitation" tap; toggle button) ---------- */
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('music-btn');
+  function setMusicUI(playing) {
+    musicBtn.setAttribute('aria-pressed', String(playing));
+    musicBtn.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+  }
+  function startMusic() {
+    if (!bgm || !musicBtn) return;
+    musicBtn.hidden = false;
+    bgm.volume = 0.6;
+    const p = bgm.play();
+    if (p && p.catch) p.then(() => setMusicUI(true)).catch(() => setMusicUI(false));
+    else setMusicUI(true);
+  }
+  if (musicBtn) musicBtn.addEventListener('click', () => {
+    if (bgm.paused) { bgm.play().then(() => setMusicUI(true)).catch(() => {}); }
+    else { bgm.pause(); setMusicUI(false); }
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && bgm && !bgm.paused) { bgm.pause(); setMusicUI(false); } });
 
   /* ---------- 2. Navigation ---------- */
   function closeMenu() {

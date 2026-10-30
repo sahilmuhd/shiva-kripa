@@ -338,3 +338,11 @@ body.is-open .nav { opacity: 1; pointer-events: auto; }
 .contact-link:hover { color: var(--gold-dark); }
 .map-frame { margin-top: 28px; border: 1px solid rgba(184,146,61,.6); border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 3; max-height: 340px; width: 100%; box-shadow: 0 14px 34px rgba(94,26,38,.14); }
 .map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ---------- music toggle ---------- */
+.music-btn { position: fixed; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 600; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--gold); background: rgba(246,238,220,.94); color: var(--maroon); display: grid; place-items: center; box-shadow: 0 6px 18px rgba(60,30,20,.2); transition: transform .3s var(--ease), background .3s; }
+.music-btn[hidden] { display: none; }
+.music-btn:hover { background: var(--gold-light); }
+.music-btn .ico-off { display: none; }
+.music-btn[aria-pressed="false"] .ico-on { display: none; }
+.music-btn[aria-pressed="false"] .ico-off { display: block; }
